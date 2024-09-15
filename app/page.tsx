@@ -6,8 +6,10 @@ export default function Home() {
       h-screen flex items-center justify-center p-5"
     >
       <div
-        className="bg-white shadow-lg p-5 rounded-3xl w-full max-w-screen-sm flex flex-col md:flex-row gap-2
-      *:outline-none has-[:invalid]:ring-red-100 has-[:invalid]:ring"
+        className="bg-white shadow-lg p-5 rounded-3xl w-full max-w-screen-sm flex
+        flex-col md:flex-row gap-2 *:outline-none
+        has-[:invalid]:ring-red-100
+        ring ring-transparent transition-shadow"
       >
         <input
           className="w-full rounded-full h-10
