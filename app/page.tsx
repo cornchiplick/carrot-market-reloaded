@@ -11,27 +11,17 @@ export default function Home() {
         flex-col gap-4"
       >
         {["Nico", "Me", "You", "Yourself"].map((person, index) => (
-          <div key={index} className="flex items-center gap-5 *:animate-pulse">
+          <div key={index} className="flex items-center gap-5 ">
+            <div className="size-10 bg-blue-400 rounded-full" />
+            <span className="text-lg font-medium">{person}</span>
             <div
-              className="size-10
-              bg-blue-400 rounded-full"
-            />
-            <div
-              className="w-40 h-4
-              rounded-full bg-gray-400"
-            />
-            <div
-              className="w-20 h-4
-              rounded-full bg-gray-400"
-            />
-            {/* <span className="text-lg font-medium">{person}</span> */}
-
-            {/* <div
-              className="size-6 animate-pulse
-            bg-red-500 text-white flex items-center justify-center rounded-full"
+              className="size-6 bg-red-500 
+              text-white flex items-center
+              justify-center rounded-full relative"
             >
-              <span>{index}</span>
-            </div> */}
+              <span className="z-10">{index}</span>
+              <div className="size-6 bg-red-500 rounded-full absolute animate-ping" />
+            </div>
           </div>
         ))}
       </div>
