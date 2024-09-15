@@ -14,7 +14,8 @@ export default function Home() {
           <div
             key={index}
             className="flex items-center gap-5 
-            odd:bg-gray-100 even:bg-cyan-100 p-2.5 rounded-xl"
+            border-b-2 pb-5 last:pb-0 last:border-0
+            "
           >
             <div className="size-10 bg-blue-400 rounded-full" />
             <span className="text-lg font-medium">{person}</span>
