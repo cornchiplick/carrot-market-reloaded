@@ -12,7 +12,7 @@ export default function Home() {
       >
         <button
           className="w-full h-10 bg-black
-        text-white rounded-full"
+        text-white rounded-sexy-name m-tomato"
         >
           Submit
         </button>
