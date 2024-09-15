@@ -11,7 +11,7 @@ export default function Home() {
             bg-gray-200 pl-5 outline-none ring
             ring-transparent focus:ring-green-500
             focus:ring-offset-2 transition-shadow
-            placeholder:drop-shadow invalid:focus:ring-red-100
+            placeholder:drop-shadow invalid:focus:ring-red-500 peer
             "
           type="email"
           required
@@ -21,7 +21,7 @@ export default function Home() {
           className="text-white py-2
           rounded-full active:scale-90
           transition-transform font-medium
-          outline-none md:px-10 bg-black
+          outline-none md:px-10 bg-black peer-invalid:bg-red-100
           "
         >
           Search
