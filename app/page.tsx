@@ -10,12 +10,8 @@ export default function Home() {
       rounded-3xl w-full max-w-screen-sm flex
       flex-col gap-4"
       >
-        <button
-          className="w-full h-10 bg-black
-        text-white rounded-sexy-name m-tomato"
-        >
-          Submit
-        </button>
+        <input />
+        <button className="btn">Submit</button>
       </div>
     </main>
   );
