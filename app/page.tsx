@@ -15,16 +15,19 @@ export default function Home() {
             "
           type="email"
           required
-          placeholder="Search here..."
+          placeholder="Email address"
         />
+        <span className="text-red-500 font-medium hidden peer-invalid:block">
+          Email is required.
+        </span>
         <button
           className="text-white py-2
           rounded-full active:scale-90
           transition-transform font-medium
-          outline-none md:px-10 bg-black peer-invalid:bg-red-100
+          outline-none md:px-10 bg-black 
           "
         >
-          Search
+          Log in
         </button>
       </div>
     </main>
