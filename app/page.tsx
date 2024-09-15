@@ -11,6 +11,7 @@ export default function Home() {
       flex-col gap-4"
       >
         <input />
+        <a href="#">aaaa</a>
         <button className="btn">Submit</button>
       </div>
     </main>
