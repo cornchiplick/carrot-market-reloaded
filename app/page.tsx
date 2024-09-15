@@ -18,10 +18,10 @@ export default function Home() {
           placeholder="Search here..."
         />
         <button
-          className="bg-black text-white py-2
+          className="text-white py-2
           rounded-full active:scale-90
           transition-transform font-medium
-          outline-none md:px-10
+          outline-none md:px-10 bg-gradient-to-tr from-cyan-500 via-yellow-400 to-purple-400
           "
         >
           Search
