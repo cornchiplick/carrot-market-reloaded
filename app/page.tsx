@@ -7,7 +7,7 @@ export default function Home() {
     >
       <div
         className="bg-white shadow-lg p-5 rounded-3xl w-full max-w-screen-sm flex flex-col md:flex-row gap-2
-      *:outline-none"
+      *:outline-none has-[:invalid]:ring-red-100 has-[:invalid]:ring"
       >
         <input
           className="w-full rounded-full h-10
