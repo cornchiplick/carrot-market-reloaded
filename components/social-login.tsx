@@ -6,12 +6,6 @@ export default function SocialLogin() {
     <>
       <div className="h-px w-full bg-neutral-500" />
       <div className="flex flex-col gap-3">
-        <Link className="primary-btn flex h-10 items-center justify-center gap-2" href="/sms">
-          <span>
-            <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6" />
-          </span>
-          <span>Continue with Github</span>
-        </Link>
         <Link
           className="primary-btn flex h-10 items-center justify-center gap-2"
           href="/github/start">
@@ -27,6 +21,12 @@ export default function SocialLogin() {
                 fillRule="evenodd"
                 clipRule="evenodd"></path>
             </svg>
+          </span>
+          <span>Continue with Github</span>
+        </Link>
+        <Link className="primary-btn flex h-10 items-center justify-center gap-2" href="/sms">
+          <span>
+            <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6" />
           </span>
           <span>Continue with SMS</span>
         </Link>
