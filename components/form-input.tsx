@@ -2,11 +2,11 @@ interface FomInputProps {
   type: string;
   placeholder: string;
   required: boolean;
-  errors: string[];
+  errors?: string[];
   name: string;
 }
 
-export default function FormInput({type, placeholder, required, errors, name}: FomInputProps) {
+export default function FormInput({type, placeholder, required, errors = [], name}: FomInputProps) {
   return (
     <div className="flex flex-col gap-2">
       <input
