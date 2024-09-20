@@ -28,7 +28,7 @@ const formSchema = z
     email: z.string().email().toLowerCase(),
     password: z
       .string()
-      .min(10)
+      .min(4)
       .regex(
         passwordRegex,
         "A password must have lowercase, UPPERCASE, a numnber and special characters"
