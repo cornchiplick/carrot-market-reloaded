@@ -1,13 +1,18 @@
 import db from "@/lib/db";
 import getSession from "@/lib/session";
-import {notFound, redirect} from "next/navigation";
+import {redirect} from "next/navigation";
 import {NextRequest} from "next/server";
 
 export async function GET(request: NextRequest) {
+  // github로부터 redirect된 url에는 code라는 query parameter가 존재
   const code = request.nextUrl.searchParams.get("code");
   if (!code) {
-    return notFound();
+    return new Response(null, {
+      status: 400,
+    });
   }
+
+  // code를 이용해 access token을 받아옴
   const accessTokenParams = new URLSearchParams({
     client_id: process.env.GITHUB_CLIENT_ID!,
     client_secret: process.env.GITHUB_CLIENT_SECRET!,
@@ -20,6 +25,9 @@ export async function GET(request: NextRequest) {
       Accept: "application/json",
     },
   });
+
+  // access token을 이용해 user profile을 받아옴.
+  // user profile에는 github id, avatar url, login 정보가 있음
   const {error, access_token} = await accessTokenResponse.json();
   if (error) {
     return new Response(null, {
@@ -27,12 +35,15 @@ export async function GET(request: NextRequest) {
     });
   }
 
+  // github id를 이용해 user를 찾음
   const userProfileResponse = await fetch("https://api.github.com/user", {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
     cache: "no-cache",
   });
+
+  // user가 존재하면 session에 user id를 저장하고 profile 페이지로 redirect (이후 email/pwd 방식 로그인과 동일)
   const {id, avatar_url, login} = await userProfileResponse.json();
   const user = await db.user.findUnique({
     where: {
@@ -50,7 +61,7 @@ export async function GET(request: NextRequest) {
   }
   const newUser = await db.user.create({
     data: {
-      // github 로그인을 통해 만들어지는 user의 username 과 email/pwd 방식으로 만들어지는 user의 username이 겹칠 수 있는 문제의 소지 있음
+      // 주의! github 로그인을 통해 만들어지는 user의 username 과 email/pwd 방식으로 만들어지는 user의 username이 겹칠 수 있는 문제의 소지 있음
       username: login,
 
       github_id: id + "",
