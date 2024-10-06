@@ -7,6 +7,13 @@ import bcrypt from "bcrypt";
 import {redirect} from "next/navigation";
 import {z} from "zod";
 
+export const sessionLogin = async (id: number) => {
+  const session = await getSession();
+  session.id = id;
+  await session.save();
+  return redirect("/profile");
+};
+
 const checkEmailExists = async (email: string) => {
   const user = await db.user.findUnique({
     where: {
@@ -54,10 +61,7 @@ export const login = async (prevState: any, formData: FormData) => {
     const ok = await bcrypt.compare(result.data.password, user!.password ?? "xxxx");
 
     if (ok) {
-      const session = await getSession();
-      session.id = user!.id;
-      await session.save();
-      redirect("/profile");
+      await sessionLogin(user!.id);
     } else {
       return {
         fieldErrors: {

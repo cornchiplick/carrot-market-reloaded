@@ -1,10 +1,9 @@
 "use server";
 import {PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR} from "@/lib/constants";
 import db from "@/lib/db";
-import getSession from "@/lib/session";
 import bcrypt from "bcrypt";
-import {redirect} from "next/navigation";
 import {z} from "zod";
+import {sessionLogin} from "../login/actions";
 
 const checkUsername = (username: string) => !username.includes("potato");
 const checkPasswords = ({
@@ -100,11 +99,6 @@ export async function createAccount(prevState: any, formData: FormData) {
     });
 
     // log the user in
-    const session = await getSession();
-    session.id = user.id;
-    await session.save();
-
-    // redirect "/home"
-    redirect("/profile");
+    await sessionLogin(user.id);
   }
 }
