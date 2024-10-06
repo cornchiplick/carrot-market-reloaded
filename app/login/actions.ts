@@ -10,8 +10,7 @@ import {z} from "zod";
 export const sessionLogin = async (id: number) => {
   const session = await getSession();
   session.id = id;
-  await session.save();
-  return redirect("/profile");
+  return await session.save();
 };
 
 const checkEmailExists = async (email: string) => {
@@ -62,6 +61,7 @@ export const login = async (prevState: any, formData: FormData) => {
 
     if (ok) {
       await sessionLogin(user!.id);
+      redirect("/profile");
     } else {
       return {
         fieldErrors: {

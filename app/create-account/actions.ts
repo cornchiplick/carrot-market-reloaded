@@ -2,6 +2,7 @@
 import {PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR} from "@/lib/constants";
 import db from "@/lib/db";
 import bcrypt from "bcrypt";
+import {redirect} from "next/navigation";
 import {z} from "zod";
 import {sessionLogin} from "../login/actions";
 
@@ -100,5 +101,6 @@ export async function createAccount(prevState: any, formData: FormData) {
 
     // log the user in
     await sessionLogin(user.id);
+    redirect("/profile");
   }
 }

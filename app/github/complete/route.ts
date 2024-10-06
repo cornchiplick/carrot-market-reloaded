@@ -1,5 +1,6 @@
 import {sessionLogin} from "@/app/login/actions";
 import db from "@/lib/db";
+import {redirect} from "next/navigation";
 import {NextRequest} from "next/server";
 import {getAccessToken, getGithubEmail, getGithubProfile} from "./actions";
 
@@ -30,6 +31,7 @@ export async function GET(request: NextRequest) {
   });
   if (user) {
     await sessionLogin(user.id);
+    redirect("/profile");
   }
   const newUser = await db.user.create({
     data: {
@@ -44,4 +46,5 @@ export async function GET(request: NextRequest) {
     },
   });
   await sessionLogin(newUser.id);
+  redirect("/profile");
 }
