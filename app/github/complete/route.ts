@@ -34,6 +34,17 @@ export async function GET(request: NextRequest) {
     });
   }
 
+  // email 가져와보기
+  const userEmailResponse = await fetch("https://api.github.com/user/emails", {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+    cache: "no-cache",
+  });
+
+  const emails = await userEmailResponse.json();
+  const userEmail = emails.find((email: {primary: boolean}) => email.primary)?.email;
+
   // github id를 이용해 user를 찾음
   const userProfileResponse = await fetch("https://api.github.com/user", {
     headers: {
