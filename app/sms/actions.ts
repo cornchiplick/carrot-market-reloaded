@@ -98,7 +98,7 @@ export async function smsLogIn(prevState: ActionState, formData: FormData) {
         body: `Your karrot verification code is: ${token}`,
         from: process.env.TWILIO_PHONE_NUMBER!,
         /* result.data */
-        to: process.env.TWILIO_MY_PHONE_NUMBER!,
+        to: process.env.MY_PHONE_NUMBER!,
       });
 
       return {
