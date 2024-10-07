@@ -1,4 +1,4 @@
-import {sessionLogin} from "@/app/login/actions";
+import {sessionLogin} from "@/app/(auth)/login/actions";
 import db from "@/lib/db";
 import {redirect} from "next/navigation";
 import {NextRequest} from "next/server";

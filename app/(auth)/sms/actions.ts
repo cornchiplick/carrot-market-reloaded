@@ -6,7 +6,7 @@ import {redirect} from "next/navigation";
 import twilio from "twilio";
 import validator from "validator";
 import {z} from "zod";
-import {sessionLogin} from "../login/actions";
+import {sessionLogin} from "../../login/actions";
 
 const phoneSchema = z
   .string()
