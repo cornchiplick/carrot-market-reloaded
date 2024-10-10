@@ -1,6 +1,28 @@
 "use server";
 
-import {LIMIT_FILE_SIZE} from "@/lib/constants";
+import db from "@/lib/db";
+import getSession from "@/lib/session";
+import fs from "fs/promises";
+import {redirect} from "next/navigation";
+import {z} from "zod";
+
+const productSchema = z.object({
+  photo: z.string({
+    required_error: "Photo is required",
+  }),
+  title: z
+    .string({
+      required_error: "Title is required",
+    })
+    .min(10)
+    .max(50),
+  description: z.string({
+    required_error: "Description is required",
+  }),
+  price: z.coerce.number({
+    required_error: "Price is required",
+  }),
+});
 
 export async function uploadProduct(formData: FormData) {
   const data = {
@@ -10,17 +32,40 @@ export async function uploadProduct(formData: FormData) {
     description: formData.get("description"),
   };
 
-  if (data.photo && data.photo instanceof File) {
-    if (!data.photo.type.startsWith("image/")) {
-      return;
-    }
-
-    if (data.photo.size > LIMIT_FILE_SIZE) {
-      return;
-    }
-  } else {
-    return;
+  if (data.photo instanceof File) {
+    const photoData = await data.photo.arrayBuffer();
+    await fs.appendFile(`./public/${data.photo.name}`, Buffer.from(photoData));
+    data.photo = `/${data.photo.name}`;
   }
 
-  console.log(data);
+  console.log("this1");
+
+  const result = productSchema.safeParse(data);
+  if (!result.success) {
+    return result.error.flatten();
+  } else {
+    console.log("this2");
+    const session = await getSession();
+
+    if (session.id) {
+      const product = await db.product.create({
+        data: {
+          title: result.data.title,
+          price: result.data.price,
+          description: result.data.description,
+          photo: result.data.photo,
+          user: {
+            connect: {
+              id: session.id,
+            },
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+      redirect(`/products/${product.id}`);
+      // redirect("/products");
+    }
+  }
 }
