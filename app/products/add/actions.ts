@@ -24,7 +24,7 @@ const productSchema = z.object({
   }),
 });
 
-export async function uploadProduct(formData: FormData) {
+export async function uploadProduct(_: any, formData: FormData) {
   const data = {
     photo: formData.get("photo"),
     title: formData.get("title"),
@@ -38,13 +38,10 @@ export async function uploadProduct(formData: FormData) {
     data.photo = `/${data.photo.name}`;
   }
 
-  console.log("this1");
-
   const result = productSchema.safeParse(data);
   if (!result.success) {
     return result.error.flatten();
   } else {
-    console.log("this2");
     const session = await getSession();
 
     if (session.id) {
@@ -65,7 +62,6 @@ export async function uploadProduct(formData: FormData) {
         },
       });
       redirect(`/products/${product.id}`);
-      // redirect("/products");
     }
   }
 }
