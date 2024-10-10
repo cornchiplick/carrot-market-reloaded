@@ -55,10 +55,7 @@ export default function ProductList({initialProducts}: ProductListProps) {
       {!isLastPage && (
         <span
           ref={trigger}
-          style={{
-            marginTop: `${(page + 1) * 300}vh`,
-          }}
-          className="active:sclae-95 mx-auto mb-96 w-fit rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold hover:opacity-90">
+          className="active:sclae-95 mx-auto w-fit rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold hover:opacity-90">
           {isLoading ? "로딩 중" : "Load more"}
         </span>
       )}
