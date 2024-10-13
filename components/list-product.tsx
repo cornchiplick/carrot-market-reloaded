@@ -14,7 +14,8 @@ export default function ListProduct({title, price, created_at, photo, id}: ListP
   return (
     <Link href={`/products/${id}`} className="flex gap-5">
       <div className="relative size-28 overflow-hidden rounded-md">
-        <Image fill src={photo} alt={title} className="object-cover" />
+        {/* ${photo}/avatar 의 형식으로 나타내야 하지만 내 CF 계정으로는 불가능하다. */}
+        <Image fill src={`${photo}/public`} alt={title} className="object-cover" />
       </div>
       <div className="flex flex-col gap-1 *:text-white">
         <span className="text-lg">{title}</span>
