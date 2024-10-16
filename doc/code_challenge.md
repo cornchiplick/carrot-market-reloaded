@@ -88,3 +88,9 @@
 
 1. 유저가 이미지를 업로드했는지 확인할 것.
 2. 이미지 사이즈가 4MB 이하인지 확인할 것.
+
+## 12.7 Code Challenge
+
+1. Modal 컴포넌트 내의 button 만을 client component 로 만들고 Modal을 async로 다시 변경하며 server
+   component 로 다시 변경하기
+2. 모달에서 상품의 전체 정보를 보여주도록 변경하기
