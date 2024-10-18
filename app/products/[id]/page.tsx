@@ -2,6 +2,7 @@ import db from "@/lib/db";
 import getSession from "@/lib/session";
 import {formatToWon} from "@/lib/utils";
 import {UserIcon} from "@heroicons/react/24/solid";
+import {unstable_cache as nextCache, revalidateTag} from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import {notFound} from "next/navigation";
@@ -31,8 +32,28 @@ async function getProduct(id: number) {
   return product;
 }
 
+const getCachedProduct = nextCache(getProduct, ["product-detail"], {
+  tags: ["product-detail"],
+});
+
+async function getProductTitle(id: number) {
+  const product = await db.product.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      title: true,
+    },
+  });
+  return product;
+}
+
+const getCachedProductTitle = nextCache(getProductTitle, ["product-title"], {
+  tags: ["product-title"],
+});
+
 export async function generateMetadata({params}: {params: {id: string}}) {
-  const product = await getProduct(Number(params.id));
+  const product = await getCachedProductTitle(Number(params.id));
   return {
     title: product?.title,
   };
@@ -44,12 +65,16 @@ export default async function ProductDetail({params}: {params: {id: string}}) {
     return notFound();
   }
 
-  const product = await getProduct(id);
+  const product = await getCachedProduct(id);
   if (!product) {
     return notFound();
   }
 
   const isOwner = await getIsOwner(product.userId);
+  const revalidate = async () => {
+    "use server";
+    revalidateTag("product-title");
+  };
 
   return (
     <div>
@@ -79,6 +104,9 @@ export default async function ProductDetail({params}: {params: {id: string}}) {
       </div>
       <div className="fixed bottom-0 left-0 flex w-full items-center justify-between bg-neutral-800 p-5 pb-10">
         <span className="text-lg font-semibold">{formatToWon(product.price)}원</span>
+        <form action={revalidate}>
+          <button>Revalidate title cache</button>
+        </form>
         {isOwner ? (
           <button className="rounded-md bg-red-500 px-5 py-2.5 font-semibold text-white">
             Delete product
