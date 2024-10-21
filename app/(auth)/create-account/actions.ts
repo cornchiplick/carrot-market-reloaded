@@ -4,7 +4,7 @@ import db from "@/lib/db";
 import bcrypt from "bcrypt";
 import {redirect} from "next/navigation";
 import {z} from "zod";
-import {sessionLogin} from "../../login/actions";
+import {sessionLogin} from "../login/actions";
 
 const checkUsername = (username: string) => !username.includes("potato");
 const checkPasswords = ({
