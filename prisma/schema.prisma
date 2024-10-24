@@ -59,7 +59,7 @@ model Post {
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   Int
   comments Comment[]
-  Like     Like[]
+  likes    Like[]
 }
 
 model Comment {
