@@ -100,3 +100,9 @@
 1. 현재는 유저가 제품을 업로드할 때마다 홈페이지에서 최신화 된 페이지를 볼 수 없다. 알맞은 caching
    전략을 짜서 server action에 연결하기.
 2. 제품 편집 페이지를 구축하기
+
+## 14.5 Code Challenge
+
+1. `posts/[id]/page.tsx` 에서 댓글기능을 추가하고 그 댓글을 optimistic 하게 보여주도록 하기.
+
+- 백엔드로부터 댓글목록을 받아오고, 그 댓글들을 useOptimistic을 사용하는 다른 component에 전달하기
